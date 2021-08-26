@@ -49,6 +49,11 @@ public class SkatSeries {
 	private static final Random RANDOM = new Random();
 
 	private int maxSleep = 0;
+
+	public SkatSeriesData getData() {
+		return data;
+	}
+
 	private final SkatSeriesData data;
 	private int roundsToGo = 0;
 	private boolean unlimitedRounds = false;

@@ -1,17 +1,15 @@
 /**
  * Copyright (C) 2020 Jan Schäfer (jansch@users.sourceforge.net)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package org.jskat.util;
 
@@ -30,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Holds Cards on a hand or in the Skat
- *
+ * <p>
  * FIXME this should be a real {@link Collection}
  */
 public class CardList implements Iterable<Card> {
@@ -51,8 +49,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Constructor with predefined cards
 	 *
-	 * @param newCards
-	 *            Predefined cards
+	 * @param newCards Predefined cards
 	 */
 	public CardList(final List<Card> newCards) {
 		cards.addAll(newCards);
@@ -61,8 +58,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Constructor with predefined cards
 	 *
-	 * @param newCards
-	 *            Predefined cards
+	 * @param newCards Predefined cards
 	 */
 	public CardList(final CardList newCards) {
 		cards.addAll(newCards.cards);
@@ -84,8 +80,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Removes a card
 	 *
-	 * @param card
-	 *            Card
+	 * @param card Card
 	 * @return TRUE, if card was removed successfully
 	 */
 	public boolean remove(final Card card) {
@@ -95,8 +90,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Adds a card
 	 *
-	 * @param card
-	 *            Card
+	 * @param card Card
 	 * @return TRUE, if card was added successfully
 	 */
 	public boolean add(final Card card) {
@@ -106,8 +100,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Adds cards
 	 *
-	 * @param newCards
-	 *            Cards to add
+	 * @param newCards Cards to add
 	 * @return TRUE, if cards were added successfully
 	 */
 	public boolean addAll(final CardList newCards) {
@@ -117,8 +110,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Adds cards
 	 *
-	 * @param newCards
-	 *            Cards to add
+	 * @param newCards Cards to add
 	 * @return TRUE, if cards were added successfully
 	 */
 	public boolean addAll(final Collection<Card> newCards) {
@@ -156,8 +148,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Checks, whether the hand contains a card
 	 *
-	 * @param card
-	 *            Card to check
+	 * @param card Card to check
 	 * @return TRUE, if the hand contains the card
 	 */
 	public boolean contains(final Card card) {
@@ -167,19 +158,21 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Removes a card.
 	 *
-	 * @param index
-	 *            Index of card
+	 * @param index Index of card
 	 * @return Card
 	 */
 	public Card remove(final int index) {
-		return cards.remove(index);
+		try {
+			return cards.remove(index);
+		} catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+			return cards.remove(0);
+		}
 	}
 
 	/**
 	 * Removes all cards
 	 *
-	 * @param cardsToRemove
-	 *            Cards to remove
+	 * @param cardsToRemove Cards to remove
 	 * @return TRUE, if at least one card was removed
 	 */
 	public boolean removeAll(final Collection<Card> cardsToRemove) {
@@ -189,8 +182,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Removes all cards
 	 *
-	 * @param cardsToRemove
-	 *            Cards to remove
+	 * @param cardsToRemove Cards to remove
 	 * @return TRUE, if at least one card was removed
 	 */
 	public boolean removeAll(final CardList cardsToRemove) {
@@ -207,8 +199,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Gets the index of a card on the hand
 	 *
-	 * @param card
-	 *            Card
+	 * @param card Card
 	 * @return Index of card on the hand
 	 */
 	public int indexOf(final Card card) {
@@ -218,10 +209,8 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Tests whether a card with a suit is in the CardList or not
 	 *
-	 * @param gameType
-	 *            Game type of the game played
-	 * @param suit
-	 *            Suit color
+	 * @param gameType Game type of the game played
+	 * @param suit     Suit color
 	 * @return TRUE, when a card with the suit is found
 	 */
 	public boolean hasSuit(final GameType gameType, final Suit suit) {
@@ -233,8 +222,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Tests whether a trump card is in the CardList or not
 	 *
-	 * @param gameType
-	 *            Game type of the game played
+	 * @param gameType Game type of the game played
 	 * @return TRUE, when a trump card was found in the CardList
 	 */
 	public boolean hasTrump(final GameType gameType) {
@@ -249,8 +237,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Checks whether a jack of a given suit is in the CardList
 	 *
-	 * @param suit
-	 *            Suit to check
+	 * @param suit Suit to check
 	 * @return TRUE if the jack of the tested suit is in the CardList
 	 */
 	public boolean hasJack(final Suit suit) {
@@ -260,22 +247,18 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Sets a card on the hand
 	 *
-	 * @param index
-	 *            Index on the hand
-	 * @param card
-	 *            Card
+	 * @param index Index on the hand
+	 * @param card  Card
 	 */
 	public void set(final int index, final Card card) {
 		cards.set(index, card);
 	}
 
 	/**
-	 * Overrides the standard get method (@see {@link List#get(int)}) to handle
-	 * the "not available" index value of -1, so that in this case the method
-	 * returns null
+	 * Overrides the standard get method (@see {@link List#get(int)}) to handle the "not available"
+	 * index value of -1, so that in this case the method returns null
 	 *
-	 * @param index
-	 *            Index on the hand
+	 * @param index Index on the hand
 	 * @return Card
 	 */
 	// FIXME (jansch 02.05.2012) seems wrong to me
@@ -284,18 +267,18 @@ public class CardList implements Iterable<Card> {
 		try {
 			return cards.get(index);
 		} catch (IndexOutOfBoundsException e) {
-			if (index == -1) {
+			try {
+				return cards.get(0);
+			} catch (IndexOutOfBoundsException e2) {
 				return null;
 			}
-			throw e;
 		}
 	}
 
 	/**
 	 * Gets the index of a card in the CardList
 	 *
-	 * @param card
-	 *            Card to be searched
+	 * @param card Card to be searched
 	 * @return Index of the Card in the CardList
 	 */
 	public int getIndexOf(final Card card) {
@@ -321,27 +304,23 @@ public class CardList implements Iterable<Card> {
 	}
 
 	/**
-	 * Gets the suit with the most Cards in the CardList (without considering
-	 * the jacks!)
+	 * Gets the suit with the most Cards in the CardList (without considering the jacks!)
 	 *
-	 * @return Suit with most Cards in the CardList,<br>
-	 *         the highest ranking suit, if there the highest count gives more
-	 *         than one suit
+	 * @return Suit with most Cards in the CardList,<br> the highest ranking suit, if there the
+	 * highest count gives more than one suit
 	 */
 	public Suit getMostFrequentSuit() {
 		return getMostFrequentSuit(null);
 	}
 
 	/**
-	 * Gets the suit with the most Cards in the CardList (without considering
-	 * the jacks!), without considering the given suit
+	 * Gets the suit with the most Cards in the CardList (without considering the jacks!), without
+	 * considering the given suit
 	 *
-	 * @param exclude
-	 *            suit to exclude from calculating the most frequent suit
-	 *            (normally the trump suit)
-	 * @return Suit with most Cards in the CardList,<br>
-	 *         the highest ranking suit, if there the highest count gives more
-	 *         than one suit
+	 * @param exclude suit to exclude from calculating the most frequent suit (normally the trump
+	 *                suit)
+	 * @return Suit with most Cards in the CardList,<br> the highest ranking suit, if there the
+	 * highest count gives more than one suit
 	 */
 	public Suit getMostFrequentSuit(final Suit exclude) {
 
@@ -364,11 +343,9 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Returns the number of cards with a given suit dependent on a game type
 	 *
-	 * @param suit
-	 *            The suit to search for
-	 * @param countJack
-	 *            TRUE if all of the jack should count to the number of suit
-	 *            cards (max=8), FALSE otherwise (max=7)
+	 * @param suit      The suit to search for
+	 * @param countJack TRUE if all of the jack should count to the number of suit cards (max=8),
+	 *                  FALSE otherwise (max=7)
 	 * @return Number of cards with this suit
 	 */
 	public int getSuitCount(final Suit suit, final boolean countJack) {
@@ -388,8 +365,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Returns the number of potential trump cards for a given suit
 	 *
-	 * @param trumpSuit
-	 *            The potential trump suit to search for
+	 * @param trumpSuit The potential trump suit to search for
 	 * @return Number of trump cards for this suit
 	 */
 	public int getTrumpCount(final Suit trumpSuit) {
@@ -407,8 +383,7 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Sorts the Cards in the CardList according the sort type SkatConstants
 	 *
-	 * @param gameType
-	 *            Game type for sorting
+	 * @param gameType Game type for sorting
 	 */
 	public void sort(final GameType gameType) {
 
@@ -418,22 +393,22 @@ public class CardList implements Iterable<Card> {
 		}
 		if (!containsHiddenCards()) {
 			switch (gameType) {
-			case NULL:
-				Collections.sort(cards, new NullComparator());
-				break;
-			case RAMSCH:
-				Collections.sort(cards, new RamschComparator());
-				break;
-			case CLUBS:
-			case SPADES:
-			case HEARTS:
-			case DIAMONDS:
-				Collections.sort(cards, new SuitComparator(gameType));
-				break;
-			case GRAND:
-			default:
-				Collections.sort(cards, new SuitComparator(GameType.CLUBS));
-				break;
+				case NULL:
+					Collections.sort(cards, new NullComparator());
+					break;
+				case RAMSCH:
+					Collections.sort(cards, new RamschComparator());
+					break;
+				case CLUBS:
+				case SPADES:
+				case HEARTS:
+				case DIAMONDS:
+					Collections.sort(cards, new SuitComparator(gameType));
+					break;
+				case GRAND:
+				default:
+					Collections.sort(cards, new SuitComparator(GameType.CLUBS));
+					break;
 			}
 		}
 	}
@@ -478,12 +453,9 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Returns the first index of a card with the given suit.
 	 *
-	 * @param suit
-	 *            Suit to search
-	 * @param includeJacks
-	 *            flag whether to include jacks in the result
-	 * @return First index of a card with the given suit, -1 if there is no such
-	 *         card
+	 * @param suit         Suit to search
+	 * @param includeJacks flag whether to include jacks in the result
+	 * @return First index of a card with the given suit, -1 if there is no such card
 	 */
 	public int getFirstIndexOfSuit(final Suit suit,
 			final boolean includeJacks) {
@@ -504,10 +476,8 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Returns the first index of a card with the given suit (including jacks!)
 	 *
-	 * @param suit
-	 *            Suit to search
-	 * @return First index of a card with the given suit, -1 if there is no such
-	 *         card
+	 * @param suit Suit to search
+	 * @return First index of a card with the given suit, -1 if there is no such card
 	 */
 	public int getFirstIndexOfSuit(final Suit suit) {
 
@@ -517,10 +487,8 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Returns the last index of a card with the given suit (including jacks!)
 	 *
-	 * @param suit
-	 *            Suit to search
-	 * @return Last index of a card with the given suit, -1 if there is no such
-	 *         card
+	 * @param suit Suit to search
+	 * @return Last index of a card with the given suit, -1 if there is no such card
 	 */
 	public int getLastIndexOfSuit(final Suit suit) {
 
@@ -530,12 +498,9 @@ public class CardList implements Iterable<Card> {
 	/**
 	 * Returns the last index of a card with the given suit
 	 *
-	 * @param suit
-	 *            Suit to search
-	 * @param includeJacks
-	 *            flag whether to include jacks in the result
-	 * @return Last index of a card with the given suit, -1 if there is no such
-	 *         card
+	 * @param suit         Suit to search
+	 * @param includeJacks flag whether to include jacks in the result
+	 * @return Last index of a card with the given suit, -1 if there is no such card
 	 */
 	public int getLastIndexOfSuit(final Suit suit, final boolean includeJacks) {
 
@@ -568,12 +533,10 @@ public class CardList implements Iterable<Card> {
 	}
 
 	/**
-	 * converts the CardList to an int[4] array for a bitwise representation of
-	 * the CardList, with one int value per suit. The index of the array equals
-	 * the Suit ordinal (0=Clubs, 3=Diamonds).<br>
-	 * &nbsp;<br>
-	 * Using this representation, bitwise operations can be performed on the
-	 * CardList, e.g. by AI players.
+	 * converts the CardList to an int[4] array for a bitwise representation of the CardList, with one
+	 * int value per suit. The index of the array equals the Suit ordinal (0=Clubs, 3=Diamonds).<br>
+	 * &nbsp;<br> Using this representation, bitwise operations can be performed on the CardList, e.g.
+	 * by AI players.
 	 *
 	 * @return an int[4] array
 	 */
@@ -586,8 +549,7 @@ public class CardList implements Iterable<Card> {
 	}
 
 	/**
-	 * Provides a String view on the binary representation of the CardList for
-	 * logging purposes
+	 * Provides a String view on the binary representation of the CardList for logging purposes
 	 *
 	 * @return a loggable String (containing CR/LF chars!)
 	 */
@@ -635,7 +597,7 @@ public class CardList implements Iterable<Card> {
 
 	/**
 	 * Returns an unbeatable Grand/suit hand of 10 cards.
-	 * 
+	 *
 	 * @return Unbeatable Grand/suit hand
 	 */
 	public final static CardList getPerfectGrandSuitHand() {
@@ -645,9 +607,8 @@ public class CardList implements Iterable<Card> {
 
 	/**
 	 * Returns random hand.
-	 * 
-	 * @param cardCount
-	 *            Number of cards
+	 *
+	 * @param cardCount Number of cards
 	 * @return Random hand
 	 */
 	public final static CardList getRandomCards(int cardCount) {
@@ -660,6 +621,7 @@ public class CardList implements Iterable<Card> {
 	}
 
 	private class NullComparator implements Comparator<Card> {
+
 		@Override
 		public int compare(Card first, Card second) {
 			if (first.getSuit().getSortOrder() < second.getSuit()
@@ -679,6 +641,7 @@ public class CardList implements Iterable<Card> {
 	}
 
 	private class RamschComparator implements Comparator<Card> {
+
 		@Override
 		public int compare(Card first, Card second) {
 			// first the jacks
@@ -713,6 +676,7 @@ public class CardList implements Iterable<Card> {
 	}
 
 	private class SuitComparator implements Comparator<Card> {
+
 		private final GameType gameType;
 
 		public SuitComparator(GameType pGameType) {

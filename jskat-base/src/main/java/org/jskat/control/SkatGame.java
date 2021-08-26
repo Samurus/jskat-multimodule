@@ -44,10 +44,20 @@ public class SkatGame {
 
     private Logger log = LoggerFactory.getLogger(SkatGame.class);
     private int maxSleep;
+
+    public SkatGameData getData() {
+        return data;
+    }
+
     private final SkatGameData data;
     private final GameVariant variant;
     private CardDeck deck;
     private final Map<Player, JSkatPlayer> player;
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
     private Player activePlayer;
     private final String tableName;
     private JSkatView view;
@@ -907,6 +917,11 @@ public class SkatGame {
 
     private JSkatPlayer getActivePlayerInstance() {
         return player.get(activePlayer);
+    }
+
+    public JSkatPlayer getDeclarerPlayerInstance() {
+        Player declarer = getData().getDeclarer();
+        return player.get(declarer);
     }
 
     private JSkatPlayer getPlayerInstance(Player position) {

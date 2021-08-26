@@ -47,6 +47,11 @@ public class SkatSeriesData {
 	}
 
 	private SeriesState state;
+
+	public List<SkatGame> getGames() {
+		return games;
+	}
+
 	private List<SkatGame> games;
 	private String tableName;
 	private Player bottomPlayer;

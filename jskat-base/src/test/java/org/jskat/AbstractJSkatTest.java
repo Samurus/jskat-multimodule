@@ -15,9 +15,12 @@
  */
 package org.jskat;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import org.jskat.data.DesktopSavePathResolver;
 import org.jskat.data.JSkatOptions;
 import org.junit.jupiter.api.BeforeAll;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstract class for all JSkat unit tests
@@ -30,6 +33,9 @@ public abstract class AbstractJSkatTest {
     @BeforeAll
     public static void createLogger() {
         final JSkatOptions options = JSkatOptions.instance(new DesktopSavePathResolver());
+
         options.resetToDefault();
+        final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        logger.setLevel(Level.DEBUG );
     }
 }
