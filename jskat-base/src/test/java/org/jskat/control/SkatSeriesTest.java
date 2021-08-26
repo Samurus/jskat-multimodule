@@ -56,15 +56,11 @@ public class SkatSeriesTest extends AbstractJSkatTest {
         String rando = "rando";
         String algo = "algo";
 //        AlgorithmAI algorithmAI = new AlgorithmAI();
-        AIPlayerRND algorithmAI = new AIPlayerRND();
-        algorithmAI.setPlayerName(algo);
+        AlgorithmAI algorithmAI = new AlgorithmAI(algo);
 //    AIPlayerRND aiPlayerRND = new AIPlayerRND(rando);
 
-        AIPlayerRND aiPlayerRND = new AIPlayerRND();
-        aiPlayerRND.setPlayerName(rando);
-
-        JuliusAI juliusAI = new JuliusAI();
-        juliusAI.setPlayerName(julius);
+        AIPlayerRND aiPlayerRND = new AIPlayerRND(rando);
+        JuliusAI juliusAI = new JuliusAI(julius);
 
         List<SkatGame> playerLongMap = runSubsetOfSeries(rounds, Arrays.asList(
             juliusAI,

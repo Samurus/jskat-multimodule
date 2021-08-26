@@ -31,6 +31,12 @@ import org.slf4j.LoggerFactory;
  */
 public class AlgorithmAI extends AbstractAIPlayer {
 
+	public AlgorithmAI(){
+	}
+	public AlgorithmAI(final String newPlayerName) {
+		playerName = newPlayerName;
+	}
+
 	private static final Logger log = LoggerFactory.getLogger(AlgorithmAI.class);
 
 	private AbstractAlgorithmAI aiPlayer = null;
