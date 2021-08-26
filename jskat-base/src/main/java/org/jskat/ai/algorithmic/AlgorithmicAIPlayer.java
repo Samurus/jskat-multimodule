@@ -37,6 +37,12 @@ public class AlgorithmicAIPlayer extends AbstractAIPlayer {
 	private IAlgorithmicAIPlayer aiPlayer = null;
 	BidEvaluator bidEvaluator = null;
 
+	public AlgorithmicAIPlayer(){
+	}
+	public AlgorithmicAIPlayer(final String newPlayerName) {
+		playerName = newPlayerName;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *

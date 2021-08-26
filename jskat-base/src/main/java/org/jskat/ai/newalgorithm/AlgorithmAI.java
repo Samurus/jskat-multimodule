@@ -153,8 +153,11 @@ public class AlgorithmAI extends AbstractAIPlayer {
 						+ " ist AlgorithmSuit-Spieler / getCardsToDiscard");
 			}
 		}
-
-		return aiPlayer.discardSkat(bidEvaluator);
+		try {
+			return aiPlayer.discardSkat(bidEvaluator);
+		}catch (Exception e){
+			return new CardList();
+		}
 	}
 
 	/*

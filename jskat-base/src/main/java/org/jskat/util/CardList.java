@@ -162,11 +162,7 @@ public class CardList implements Iterable<Card> {
 	 * @return Card
 	 */
 	public Card remove(final int index) {
-		try {
-			return cards.remove(index);
-		} catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-			return cards.remove(0);
-		}
+		return cards.remove(index);
 	}
 
 	/**

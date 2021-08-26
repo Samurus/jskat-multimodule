@@ -15,17 +15,21 @@ package org.jskat.control;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import com.google.common.eventbus.EventBus;
 import java.util.HashMap;
 import java.util.Map;
 import org.jskat.AbstractJSkatTest;
+import org.jskat.ai.algorithmic.AlgorithmicAIPlayer;
 import org.jskat.ai.newalgorithm.AlgorithmAI;
 import org.jskat.ai.rnd.AIPlayerRND;
 import org.jskat.ai.rnd.JuliusAI;
 import org.jskat.gui.UnitTestView;
 import org.jskat.player.JSkatPlayer;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -40,25 +44,30 @@ public class SkatSeriesTest extends AbstractJSkatTest {
 
     private final static String TABLE_NAME = "Table 1";
 
+    @BeforeAll
+    public static void turnOffLogging(){
+        final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        logger.setLevel(Level.OFF );
+    }
 
     @Test
-    public void testSkatSeriesRun() throws ExecutionException, InterruptedException {
+    public void testSkatSeriesRun()
+        throws ExecutionException, InterruptedException, NoSuchFieldException {
 
-        int rounds = 1080;
         long l = System.currentTimeMillis();
 
-        final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-        logger.setLevel(Level.ERROR );
-
+        int rounds = 3000;
+        
         System.out.printf("starte %d serien: %n", rounds);
 
         String julius = "Julius";
         String rando = "rando";
         String algo = "algo";
-//        AlgorithmAI algorithmAI = new AlgorithmAI();
-        AlgorithmAI algorithmAI = new AlgorithmAI(algo);
-//    AIPlayerRND aiPlayerRND = new AIPlayerRND(rando);
-
+//        AlgorithmicAIPlayer()
+//        JuliusAI
+//        AIPlayerRND
+//        AlgorithmAI (bugged)
+        AlgorithmicAIPlayer algorithmAI = new AlgorithmicAIPlayer(algo);
         AIPlayerRND aiPlayerRND = new AIPlayerRND(rando);
         JuliusAI juliusAI = new JuliusAI(julius);
 

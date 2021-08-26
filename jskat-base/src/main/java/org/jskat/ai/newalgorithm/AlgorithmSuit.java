@@ -86,8 +86,8 @@ public class AlgorithmSuit extends AbstractAlgorithmAI {
 		// knowledge.removeOwnCards(tDiscardCards);
 
 		// handle wrong discarding
-		while (tDiscardCards.get(0)!=null &&tDiscardCards.get(0).equals(tDiscardCards.get(1))) {
-		 tDiscardCards.remove(0);
+		while (tDiscardCards.get(0).equals(tDiscardCards.get(1))) {
+			tDiscardCards.remove(1);
 			tDiscardCards.add(knowledge.getOwnCards().get(
 					random.nextInt(knowledge.getOwnCards().size())));
 		}
