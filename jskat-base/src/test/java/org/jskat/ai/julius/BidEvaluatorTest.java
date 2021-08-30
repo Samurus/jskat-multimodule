@@ -1,13 +1,16 @@
 package org.jskat.ai.julius;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,12 +23,14 @@ class BidEvaluatorTest {
 
   @Test
   public void extractBiddingStatesForAiLearning() throws IOException {
-    String filePath = "C:\\Users\\achen\\Downloads\\iss2-games-04-2021(1).sgf";
+//    String filePath = "C:\\Users\\user\\Downloads\\iss2-games-04-2021(1).sgf";
+    String filePath = "iss-testgames.sgf";
 
     for (int playerPosition = 0; playerPosition < Player.values().length; playerPosition++) {
-      try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
+//      try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
+      try ( Stream<String> stream = Files.lines(Path.of(new File(Objects.requireNonNull(getClass().getClassLoader().getResource(filePath)).getFile()).getAbsolutePath()))) {
         Integer finalPlayerPosition = playerPosition;
-        stream.skip(190000).limit(200000)
+        stream.skip(0).limit(200000)
             .filter(game -> game.contains("P" + finalPlayerPosition + "[zoot]"))
             .collect(Collectors.toList())
             .forEach(game -> {
@@ -44,14 +49,14 @@ class BidEvaluatorTest {
 
   @Test
   public void compareBiddingHandsWithJuliusBidHelper() throws IOException {
-    String filePath = "C:\\Users\\achen\\Downloads\\iss2-games-04-2021(1).sgf";
+    String filePath = "iss-testgames.sgf";
 
     AtomicReference<Integer> total = new AtomicReference<>(0);
     AtomicReference<Integer> countJuliusBidTooHigh = new AtomicReference<>(0);
     AtomicReference<Integer> countJuliusBidTooLow = new AtomicReference<>(0);
 
-    try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
-      stream.skip(190000).limit(200000).forEach(game -> {
+    try ( Stream<String> stream = Files.lines(Path.of(new File(Objects.requireNonNull(getClass().getClassLoader().getResource(filePath)).getFile()).getAbsolutePath()))) {
+      stream.forEach(game -> {
         IssGameDto issGameDto = extractedGame(game);
         Map<Integer, Integer> maxBidByPlayerPosition = IssGameEvaluator.maxBidByPlayerPosition(
             issGameDto);
@@ -135,7 +140,6 @@ class BidEvaluatorTest {
 
   private IssGameDto extractedGame(String issSkatEntry) {
     IssGameDto issGameDto = new IssGameDto();
-    String[] splittedGame;
     String dealedCards;
     String test = issSkatEntry.split("\\[")[13];
     String replace = test.replace("]R", "").replaceFirst("w ", "");
