@@ -280,7 +280,7 @@ public enum Card {
 
 		boolean result = false;
 
-		if (gameType != GameType.NULL) {
+		if (gameType != GameType.NULL && gameType!=GameType.PASSED_IN) {
 
 			result = ((SuitGrandRamschRule) SkatRuleFactory
 					.getSkatRules(gameType)).isTrump(gameType, this);

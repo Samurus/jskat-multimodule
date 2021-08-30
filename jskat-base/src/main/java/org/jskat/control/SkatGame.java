@@ -901,14 +901,19 @@ public class SkatGame {
             log.error("Player (" + skatPlayer + ") is fooling!!! Doesn't have card " + playedCard + "!"); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
             isSchwarz = true;
 
-        } else if (!rules.isCardAllowed(data.getGameType(), firstTrickCard, data.getPlayerCards(position),
+        } else if (rules==null || !rules.isCardAllowed(
+            data.getGameType(),
+            firstTrickCard,
+            data.getPlayerCards(position),
                 playedCard)) {
 
             log.error(
                     "Player " + skatPlayer.getClass().toString() + " card not allowed: " + playedCard + " game type: " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                             + data.getGameType() + " first trick card: " //$NON-NLS-1$
                             + firstTrickCard + " player cards: " //$NON-NLS-1$
-                            + data.getPlayerCards(position));
+                            + data.getPlayerCards(position)
+                            + rules
+            );
             isSchwarz = true;
         }
 

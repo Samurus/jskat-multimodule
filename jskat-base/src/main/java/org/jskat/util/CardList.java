@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import java.util.stream.Collectors;
 import org.jskat.util.rule.SkatRuleFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -238,6 +239,14 @@ public class CardList implements Iterable<Card> {
 	 */
 	public boolean hasJack(final Suit suit) {
 		return cards.contains(Card.getCard(suit, Rank.JACK));
+	}
+
+	public List<Card> availableJacks() {
+		return new ArrayList<>(Collections.unmodifiableList(cards.stream().filter(i->i.getRank().equals(Rank.JACK)).collect(Collectors.toList())));
+	}
+
+	public List<Card> availableAces() {
+		return new ArrayList<>(Collections.unmodifiableList(cards.stream().filter(i->i.getRank().equals(Rank.ACE)).collect(Collectors.toList())));
 	}
 
 	/**

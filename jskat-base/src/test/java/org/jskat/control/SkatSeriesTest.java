@@ -15,18 +15,17 @@ package org.jskat.control;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import java.lang.reflect.Field;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import com.google.common.eventbus.EventBus;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import org.jskat.AbstractJSkatTest;
 import org.jskat.ai.algorithmic.AlgorithmicAIPlayer;
+import org.jskat.ai.julius.JuliusAI;
 import org.jskat.ai.newalgorithm.AlgorithmAI;
 import org.jskat.ai.rnd.AIPlayerRND;
-import org.jskat.ai.rnd.JuliusAI;
 import org.jskat.gui.UnitTestView;
 import org.jskat.player.JSkatPlayer;
 import org.junit.jupiter.api.BeforeAll;
@@ -47,7 +46,7 @@ public class SkatSeriesTest extends AbstractJSkatTest {
     @BeforeAll
     public static void turnOffLogging(){
         final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-        logger.setLevel(Level.OFF );
+        logger.setLevel(Level.INFO );
     }
 
     @Test
@@ -56,8 +55,8 @@ public class SkatSeriesTest extends AbstractJSkatTest {
 
         long l = System.currentTimeMillis();
 
-        int rounds = 3000;
-        
+        int rounds = 1000;
+
         System.out.printf("starte %d serien: %n", rounds);
 
         String julius = "Julius";
@@ -67,8 +66,8 @@ public class SkatSeriesTest extends AbstractJSkatTest {
 //        JuliusAI
 //        AIPlayerRND
 //        AlgorithmAI (bugged)
-        AlgorithmicAIPlayer algorithmAI = new AlgorithmicAIPlayer(algo);
-        AIPlayerRND aiPlayerRND = new AIPlayerRND(rando);
+        JuliusAI algorithmAI = new JuliusAI(algo);
+        JuliusAI aiPlayerRND = new JuliusAI(rando);
         JuliusAI juliusAI = new JuliusAI(julius);
 
         List<SkatGame> playerLongMap = runSubsetOfSeries(rounds, Arrays.asList(
@@ -78,6 +77,26 @@ public class SkatSeriesTest extends AbstractJSkatTest {
         long l1 = System.currentTimeMillis() - l;
         System.out.println("Spieldauer: " + l1);
         Map<String, Double> summary = getSummary(playerLongMap, julius, rando, algo);
+
+        System.out.println("% Spiele Gereizt Julius "+ playerLongMap.stream().filter(i -> i.getData().getDeclarer() != null)
+            .filter(i -> i.getDeclarerPlayerInstance().getPlayerName().equals(julius))
+            .count()
+        );
+
+        System.out.println("% Spiele Gereizt rando "+ playerLongMap.stream().filter(i -> i.getData().getDeclarer() != null)
+            .filter(i -> i.getDeclarerPlayerInstance().getPlayerName().equals(rando))
+            .count()
+        );
+
+        System.out.println("% Spiele Gereizt algo "+ playerLongMap.stream().filter(i -> i.getData().getDeclarer() != null)
+            .filter(i -> i.getDeclarerPlayerInstance().getPlayerName().equals(algo))
+            .count()
+        );
+        System.out.printf("Serien %d %n", rounds);
+
+        System.out.println("% eingepasste Spiele "+playerLongMap.stream().filter(i -> i.getData().getDeclarer() == null)
+            .count()
+        );
 
         System.out.println(summary);
 

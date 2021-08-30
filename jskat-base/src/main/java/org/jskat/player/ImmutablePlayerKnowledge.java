@@ -67,6 +67,10 @@ public class ImmutablePlayerKnowledge {
 	// FIXME (markus 07.11.11.) why is this a "Set<Card>" instead of "CardList"?
 	protected final Set<Card> possibleSkatCards = new HashSet<>();
 
+	public Map<Player, Integer> getHighestBid() {
+		return highestBid;
+	}
+
 	/**
 	 * Holds the highest bid every player has made during bidding
 	 */
